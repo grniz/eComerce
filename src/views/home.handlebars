@@ -1,0 +1,40 @@
+<h1>Productos</h1>
+<div style="display: flex;">
+    {{#each products}}
+    <div class="card" style="width: 18rem;">
+        <img src="{{this.thumbnail}}" className="card-img-top" alt="{{this.title}}">
+        <div class="card-body">
+            <h5 class="card-title">{{this.title}}</h5>
+            <p class="card-text">{{this.description}}</p>
+        </div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">{{this.code}}</li>
+            <li class="list-group-item">${{this.price}}</li>
+            <li class="list-group-item">Stock: {{this.stock}}</li>
+        </ul>
+        <div class="card-body">
+            <a href="#" class="card-link">{{this.status}}</a>
+            <a href="#" class="card-link">{{this.category}}</a>
+
+            <form action="/api/carts/{{@root.cartId}}/product/{{_id}}" method="post">
+                <label for="quantity-{{_id}}">Cantidad:</label>
+                <input type="number" name="quantity" id="quantity-{{_id}}" value="1" min="1">
+                <button type="submit">Agregar al carrito</button>
+            </form>
+        </div>
+    </div>
+    {{/each}}
+</div>
+{{#if hasPrevPage}}
+<a href="/?limit={{limit}}&page={{prevPage}}&sort={{sort}}&query={{query}}"><button
+        class="btn btn-danger">Anterior</button></a>
+{{/if}}
+{{#if hasNextPage}}
+<a href="/?limit={{limit}}&page={{nextPage}}&sort={{sort}}&query={{query}}"><button
+        class="btn btn-danger">Siguiente</button></a>
+{{/if}}
+
+<div>
+  <a href="/api/sessions/github"> <button>Login con github</button></a>
+
+</div>
