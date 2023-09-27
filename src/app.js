@@ -15,6 +15,10 @@ import sessionRouter from "./routes/sessions.router.js";
 import loginRouter from "./routes/login.router.js";
 import signupRouter from "./routes/signup.router.js";
 import forgotRouter from "./routes/forgot.router.js";
+import userRouter from "./routes/user.router.js"
+
+import nodemailer from "nodemailer";
+
 
 dotenv.config();
 const app = express();
@@ -26,6 +30,33 @@ const PORT = process.env.PORT || 8080;
 app.use(express.static(__dirname + "public"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+const user = process.env.USER_MAIL;
+const password = process.env.PASS_MAIL;
+
+const transport = nodemailer.createTransport({
+  service: "gmail",
+  port: 587,
+  auth:{
+    user:user,
+    pass:password,
+  }
+})
+app.get("/mail", async (req,res) =>{
+  let result = await transport.sendMail(
+    from="eComerse user<ecomers@coder.com>",
+    to="usario@gmail.com",
+    subject= "correo de usuario",
+    html=`
+      <div style={color:blue}>
+      <h1>correo enviado
+      </div>`,
+    attachments=[],
+  )
+  res.json({
+    message:"correo enviado con exito"
+  })
+})
 
 app.use(
     session({
@@ -65,13 +96,14 @@ app.set("view engine", "handlebars");
 app.use("/api/products/", productsRouter);
 app.use("/api/carts/", cartRouter);
 app.use("/api/cart/", cartProductRouter);
-app.use("/", loginRouter);
+app.use("/", userRouter);
+app.use("/login", loginRouter);
 app.use("/signup", signupRouter);
 app.use("/forgot", forgotRouter);
 app.use("/api/sessions/", sessionRouter);
 
 const server = app.listen(PORT, () => {
-    console.log(`servidor escuchando desde el puerto ${PORT}!`);
+    console.log(`servidor iniciado en puerto ${PORT}!`);
   });
   
   server.on("error", (err) => {
