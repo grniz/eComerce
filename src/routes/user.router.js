@@ -2,6 +2,11 @@ import { Router } from "express";
 import Contacts from "../dao/factory.js";
 import ContactDTO from "../dao/DTO/contact.js";
 
+// costum error imports
+import costumError from "../service/errors/costumError.js"
+import EErros from "../service/errors/enum.js";
+import { generateUserErrorInfo } from "../service/errors/info.js";
+
 const contacts = new Contacts();
 const router = Router();
 
@@ -11,33 +16,47 @@ router.get("/", async (req,res) => {
 });
 
 router.post("/", async (req,res) => {
+    if(!first_name || !last_name || !email || !birthdate || !phone){
+        costumError.createError({
+            name: "userError",
+            cause: generateUserErrorInfo({
+                first_name,
+                last_name,
+                email,
+                birthdate,
+                phone
+            }),
+            message: "Error trying to create a user",
+            code: EErros.INVALID_TYPES_ERROR
+        });        
+    }
     const {
         first_name,
         last_name,
         email,
-        age,
-        password
+        birthdate,
+        phone
     } = req.body;
     let contact = new ContactDTO({
         first_name,
         last_name,
         email,
-        age,
-        password
+        birthdate,
+        phone
     })
     let result = await contacts.create(contact);
     res.json(result);
 });
 
-router.put("/:id", async (req,res) => {
+router.put("/:id", async (req,res) => {    
     const {
         first_name,
         last_name,
         email,
-        age,
-        password
+        birthdate,
+        phone
     } = req.body;
-    let contact = {first_name, last_name, email, age, password};
+    let contact = {first_name, last_name, email, birthdate, phone};
     const {id} = req.params;
 
     let result = await contacts.modify(id, contact);

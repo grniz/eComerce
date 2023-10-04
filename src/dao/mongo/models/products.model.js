@@ -18,11 +18,6 @@ const productSchema = mongoose.Schema({
         type: Number,
         required: true,
     },
-    status:{
-        type: Boolean,
-        required: true,
-        default: true,
-    },
     thumbnails: String,
     code:{
         type: String,
@@ -33,7 +28,7 @@ const productSchema = mongoose.Schema({
         type: Number,
         required:true,
     },
-    category:{
+    deparment:{
         type: String,
         required: true,
     },

@@ -16,6 +16,9 @@ import loginRouter from "./routes/login.router.js";
 import signupRouter from "./routes/signup.router.js";
 import forgotRouter from "./routes/forgot.router.js";
 import userRouter from "./routes/user.router.js"
+import mockingProducts from "./routes/mokingProducts.router.js";
+
+import errorHandler from "./middleware/errors/index.js";
 
 import nodemailer from "nodemailer";
 
@@ -30,6 +33,7 @@ const PORT = process.env.PORT || 8080;
 app.use(express.static(__dirname + "public"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(errorHandler);
 
 const user = process.env.USER_MAIL;
 const password = process.env.PASS_MAIL;
@@ -101,6 +105,7 @@ app.use("/login", loginRouter);
 app.use("/signup", signupRouter);
 app.use("/forgot", forgotRouter);
 app.use("/api/sessions/", sessionRouter);
+app.use("/api/mockingProducts", mockingProducts);
 
 const server = app.listen(PORT, () => {
     console.log(`servidor iniciado en puerto ${PORT}!`);
