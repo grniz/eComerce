@@ -8,6 +8,10 @@ import passport from "passport";
 import initializePassport from "./dao/config/passport.config.js";
 import cookieParser from "cookie-parser";
 
+// logger
+import { addLogger } from "./utils/logger.js";
+
+// rutas 
 import productsRouter from "./routes/products.router.js";
 import cartProductRouter from "./routes/cartProduct.router.js";
 import cartRouter from "./routes/carts.router.js";
@@ -19,8 +23,8 @@ import userRouter from "./routes/user.router.js"
 import mockingProducts from "./routes/mokingProducts.router.js";
 
 import errorHandler from "./middleware/errors/index.js";
-
 import nodemailer from "nodemailer";
+import { add } from "winston";
 
 
 dotenv.config();
@@ -34,6 +38,7 @@ app.use(express.static(__dirname + "public"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(errorHandler);
+app.use(addLogger);
 
 const user = process.env.USER_MAIL;
 const password = process.env.PASS_MAIL;
