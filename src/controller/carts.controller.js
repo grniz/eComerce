@@ -1,8 +1,8 @@
-import CARTDAO from "../dao/index.js";
+import {CARTDAO} from "../dao/index.js";
 
 async function findCarts(req, res) {
     const cart = await CARTDAO.findCarts();
-    res.send(products);
+    res.send();
   }
 async function findCartById(req, res) {
     const cart = await CARTDAO.findCartById(_id);

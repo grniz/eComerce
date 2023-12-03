@@ -1,5 +1,5 @@
 import { Router } from "express";
-import generateProduct from "../mockUtils.js";
+import {generateProduct} from "../utils/mockUtils.js";
 
 
 const router = Router();

@@ -1,4 +1,4 @@
-import CARTPRODUCTDAO from "../dao/index.js";
+import {CARTPRODUCTDAO} from "../dao/index.js";
 
 async function createCartProduct(req, res) {
     const cartProduct = req.body;

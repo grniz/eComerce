@@ -1,6 +1,4 @@
 import dotenv from "dotenv";
  dotenv.config
 
- export default {
-    persistence: process.env.PERSISTENCE
- };
+export const PERSISTENCE = process.env.PERSISTENCE || "MONGO";

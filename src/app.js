@@ -5,8 +5,9 @@ import * as dotenv from "dotenv";
 import MongoStore from "connect-mongo";
 import session from "express-session";
 import passport from "passport";
-import initializePassport from "./dao/config/passport.config.js";
+import initializePassport from "./config/passport.config.js";
 import cookieParser from "cookie-parser";
+import __dirname from "./utils/utils.js"
 
 // logger
 import { addLogger } from "./utils/logger.js";
@@ -24,17 +25,19 @@ import mockingProducts from "./routes/mokingProducts.router.js";
 
 import errorHandler from "./middleware/errors/index.js";
 import nodemailer from "nodemailer";
-import { add } from "winston";
+
 
 
 dotenv.config();
-const app = express();
-app.use(cookieParser("P1r4t3S3cr3t"));
 
 const MONGO_URI = process.env.MONGO_URI;
 const PORT = process.env.PORT || 8080;
+const SECRET_KEY = process.env.SECRET_KEY;
+const app = express();
+app.use(cookieParser(SECRET_KEY));
 
-app.use(express.static(__dirname + "public"));
+
+app.use(express.static(__dirname + "/public"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(errorHandler);
@@ -52,16 +55,17 @@ const transport = nodemailer.createTransport({
   }
 })
 app.get("/mail", async (req,res) =>{
-  let result = await transport.sendMail(
-    from="eComerse user<ecomers@coder.com>",
-    to="usario@gmail.com",
-    subject= "correo de usuario",
-    html=`
+  let result = await transport.sendMail({
+    from: "eComerse user <ecomers@coder.com>",
+    to: "usario@gmail.com",
+    subject: "correo de usuario",
+    html: `
       <div style={color:blue}>
-      <h1>correo enviado
+        <h1>correo enviado</h1>
       </div>`,
-    attachments=[],
-  )
+    attachments: [],
+  });
+  
   res.json({
     message:"correo enviado con exito"
   })

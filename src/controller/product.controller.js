@@ -1,4 +1,4 @@
-import PRODUCTDAO from "../dao/index.js";
+import {PRODUCTDAO} from "../dao/index.js";
 
 async function findProducts(req, res) {
     const products = await PRODUCTDAO.findProducts();

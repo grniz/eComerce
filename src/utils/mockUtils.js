@@ -1,30 +1,33 @@
 import { faker } from "@faker-js/faker";
 
-// genera usuarios aleatorios
-function generateUsers(){
+// Genera usuarios aleatorios
+function generateUsers() {
     return {
-        first_name:faker.person.firstName(),
-        last_name:faker.person.lastName(),
-        email:faker.internet.email(),
-        sex:faker.person.sex(),
-        bithdate:faker.date.bithdate(),
-        phone:faker.phone.number(),
-        image:faker.internet.avatar(),
-        id:faker.database.mongodbObjectId(),
+        first_name: faker.person.firstName(),
+        last_name: faker.person.lastName(),
+        email: faker.internet.email(),
+        sex: faker.person.sex(),
+        birthdate: faker.date.birthdate(),
+        phone: faker.phone.phoneNumber(),
+        image: faker.internet.avatar(),
+        id: faker.database.mongodbObjectId(),
         role: faker.datatype.boolean() ? "Admin" : "User",
-        products,
+        products: generateProduct(), // Deberías llamar a la función generateProduct para obtener productos aleatorios
     };
-};
-//genera productos aleatorios
-function generateProduct(){
+}
+
+// Genera productos aleatorios
+function generateProduct() {
     return {
         title: faker.commerce.productName(),
         description: faker.commerce.productDescription(),
         price: faker.commerce.price(),
-        thumbnails: faker.image.url(),
-        code: faker.commerce.isbn(),
-        stock: faker.commerce.stock(),
-        deparment: faker.commerce.department(),        
+        thumbnails: faker.image.imageUrl(), // Cambiado a faker.image.imageUrl()
+        code: faker.commerce.product(), // Cambiado a faker.commerce.product()
+        stock: faker.datatype.number(), // Cambiado a faker.datatype.number()
+        department: faker.commerce.department(),
         id: faker.database.mongodbObjectId(),
     };
-};
+}
+
+export { generateUsers, generateProduct };

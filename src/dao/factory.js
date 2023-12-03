@@ -1,8 +1,8 @@
-import config from "../config/config.js";
+import {PERSISTENCE} from "../config/config.js";
+
 
 export let Contact;
-
-switch (config.persistence){
+switch (PERSISTENCE){
     case "MONGO":
         const {default: ContactMongo} = await import("./mongo/contact.mongo.js");
         Contact = ContactMongo;
@@ -14,7 +14,7 @@ switch (config.persistence){
 };
 
 export let Products
-switch (config.persistence){
+switch (PERSISTENCE){
     case "MONGO":
         const {default: ProductMongo} = await import("./mongo/products.dao.js");
         Products = ProductMongo;
@@ -26,7 +26,7 @@ switch (config.persistence){
 };
 
 export let Carts
-switch (config.persistence){
+switch (PERSISTENCE){
     case "MONGO":
         const {default: CartsMongo} = await import("./mongo/carts.dao.js");
         Carts = CartsMongo;

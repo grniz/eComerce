@@ -1,5 +1,5 @@
 import { Router } from "express";
-import Contacts from "../dao/factory.js";
+import {Contact} from "../dao/factory.js";
 import ContactDTO from "../dao/DTO/contact.js";
 
 // costum error imports
@@ -7,7 +7,7 @@ import costumError from "../service/errors/costumError.js"
 import EErros from "../service/errors/enum.js";
 import { generateUserErrorInfo } from "../service/errors/info.js";
 
-const contacts = new Contacts();
+const contacts = new Contact();
 const router = Router();
 
 router.get("/", async (req,res) => {

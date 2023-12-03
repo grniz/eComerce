@@ -4,7 +4,7 @@ import {
     findCartById,
     createCart,
     updateCart,
-    deleteCart } from "../controller/product.controller.js"
+    deleteCart } from "../controller/carts.controller.js"
 
 const router = Router();
 
