@@ -1,8 +1,3 @@
-openapi: 3.0.0
-info:
-  title: Users API
-  description: API for managing users and courses
-  version: 1.0.0
 paths:
   /api/users:
     get:
@@ -184,10 +179,10 @@ components:
             description: Rol del usuario
         example:
           first_name: "Juan"
-          last_name: "Losada "
-          email: "goro@gmail.com"
-          age: "23"
-          password: "goropass123"
+          last_name: "Perez "
+          email: "perez@gmail.com"
+          age: "53"
+          password: "perez123"
     createUser:
         type: object
         propieties:
@@ -216,8 +211,8 @@ components:
             type: string
             description: Rol del usuario
         example:
-          first_name: "Juan"
-          last_name: "Losada "
-          email: "goro@gmail.com"
-          age: "23"
-          password: "goropass123"
+          first_name: "Harry"
+          last_name: "Heller "
+          email: "heller@gmail.com"
+          age: "45"
+          password: "harry123"

@@ -1,7 +1,7 @@
 {
-  "name": "capas",
+  "name": "ecomerce",
   "version": "1.0.0",
-  "description": "",
+  "description": "proyecto final coderhouse 2023 ecomerce",
   "main": "index.js",
   "type": "module",
   "scripts": {

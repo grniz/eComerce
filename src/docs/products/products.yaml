@@ -1,0 +1,221 @@
+paths:
+  /api/products:
+    get:
+      summary: Obtiene todos los productos
+      tags:
+        - products
+      responses:
+        "200":
+          description: Productos obtenidos satisfactoriamente
+          content:
+            application/json:
+              schema:
+                type: array
+                item:
+                  $ref: "#/components/schemas/Product"
+        "500":
+          description: Error interno en la obtencion de los productos
+    post:
+      summary: Crea un producto nuevo
+      tags:
+        - products
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/createProduct"
+      responses:
+        "200":
+          description: Producto creado correctamente
+          content:
+            application/json:
+              schema:
+                type: array
+                item:
+                  $ref: "#/components/schemas/Product"
+        "500":
+          description: Error interno en la creacion del producto
+
+  /api/products/{pid}:
+    get:
+      summary: Obtiene un producto por su ID
+      tags:
+        - Products
+      parameters:
+      - name: pid
+        in: path
+        required: true
+        description: ID del producto solicitado
+        schema:
+          $type: string
+      responses:
+        "200":
+          desciption: Producto obtenido safisfactoriamente
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Product"
+        "500":
+          description: error interno al obtener el producto
+    put:
+      summary: Actualiza los datos de un producto
+      tags:
+        - Products
+      parameters:
+      - name: pid
+        in: path
+        required: true
+        description: Pasa por Path el ID del producto solicitado
+        schema:
+          $type: String
+        requestBody:
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/requestBodies/updateProduct'
+      responses:
+        "200":
+          description: Producto actualizado correctamente
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Product"
+        "500":
+          description: Error interno en la obtencion del producto
+    delete:
+      summary: Elimina un producto por su ID
+      tags:
+        - Products
+      parameters:
+      - name: pid
+        in: path
+        required: true
+        description: Pasa por Path el ID del producto solicitado
+      responses:
+        "200":
+          description: Producto eliminado correctamente
+          content:
+            application/json:
+              schema:
+                type: object
+        "500":
+          description: Error interno al eliminar el producto
+components:
+  schemas:
+    Product:
+      type: object
+      properties:
+        _id:
+          type: Object ID
+          description: ID autogenerado del producto
+        title:
+          type: string
+          description: Nombre del producto
+        description:
+          type: string
+          description: Descripcion del producto        
+        price:
+          type: number
+          description: precio del producto
+        thumbnails:
+          type: string
+          description: imagen del producto
+        code:
+          type: string
+          description: Codigo unico del producto
+        stock:
+          type: number
+          description: cantidad disponible del producto
+        category:
+          type: String
+          description: Categoria del producto
+      example:
+        _id: Object ID("64d965a5c3fa7f3e5b873929")
+        title: "Bandera"
+        description: "identifica al barco"
+        price: 153
+        thumbnails: "url"
+        code: "ban123"
+        stock: 100
+        category: "navegacion"
+    requestBodies:
+      updateProduct:
+        type: object
+        properties:
+          _id:
+            type: Objet ID
+            description: ID autogenerado por Mongo
+          title:
+            type: string
+            description: Nombre del producto
+          description:
+            type: string
+            description: descripcion del producto
+          price:
+            type: number
+            description: precio del producto
+          thumbnais:
+            type: string
+            description: imagen del producto
+          code:
+            type: string
+            description: codigo unico del producto
+          stock:
+            type: number
+            description: cantidad disponible del producto
+          category:
+            type: string
+            description: Categoria del producto
+        example:
+          _id: Object ID ("44h9123ds5jhfe7ereec9a9")
+          title: "productoX"
+          description: "descripcion del producto"
+          price: 41
+          thumbnails: "url"
+          code: "prod542"
+          stock: 212
+          category: "update"
+    createProduct:
+        type: object
+        propierties:
+          _id:
+            type: object ID
+            description: ID autogenerado por mongo
+          title:
+            type: string
+            description: nombre del producto
+          description:
+            type: string
+            description: descripcion del producto
+          price:
+            type: number
+            description: precio del producto
+          thumbnais:
+            type: string
+            description: imagen del producto
+          code:
+            type: string
+            description: codigo unico del producto
+          stock:
+            type: number
+            description: cantidad disponible del producto
+          category:
+            type: string
+            description: Categoria del producto
+        example:
+          _id: Object ID ("44h96615jhfe77ehbc759a9")
+          title: "productoPrueba"
+          description: "descripcion del producto"
+          price: 32
+          thumbnails: "url"
+          code: "prod123"
+          stock: 312
+          category: "test"
+
+      
