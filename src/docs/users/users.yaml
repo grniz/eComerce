@@ -21,7 +21,7 @@ paths:
         "500":
           description: Error interno en la obtencion de los usuarios
     post:
-      sumary: Crea un nuevo usuario
+      summary: Crea un nuevo usuario en la base de datos
       tags:
         - Users
       requestBody:
@@ -69,7 +69,7 @@ paths:
           description: Error interno en la obtencion de los usuarios
     
     put:
-      sumary: Actualiza los datos de un usario por su ID
+      summary: Actualiza los datos de un usario por su ID
       tags:
         - Users
       parameters:
@@ -85,7 +85,35 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/requestBodies/updateUser'
+      responses:
+        "200":
+          description: Usuario actualizado correctamente
+          content:
+            application/json:
+              schema:
+                type: array
+                items: 
+                  $ref: "#/components/schemas/User"
+        "500":
+          description: Error interno en la obtencion del usuario
     delete:
+      summary: Elimina un usuario por ID
+      tags:
+        - Users
+      parameters:
+      - name: uid
+        in: path
+        required: true
+        description: Pasa por Path el ID del usuario solicitado
+      responses:
+        "200":
+          description: Usuario eliminado correctamente
+          content:
+            application/json:
+              schema:
+                type: object
+        "500":
+          description: Error interno en la obtencion del usuario      
 
 
 components:

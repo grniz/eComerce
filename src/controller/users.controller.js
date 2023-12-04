@@ -14,14 +14,14 @@ const getUser = async(req,res)=> {
 
 const createUser = async(req,res)=>{
     const newUser = req.body;
-    const result = await USERDAO.create(newUser);
+    const result = await USERDAO.createUser(newUser);
     res.send({status: "success", message:"usuario creado"});
 }
 
 const updateUser =async(req,res)=>{
     const updateBody = req.body;
     const userId = req.params.uid;
-    const user = await USERDAO.getUserById(userId);
+    const user = await USERDAO.updateUser(userId);
     if(!user) return res.status(404).send({status:"error", error:"User not found"})
     const result = await USERDAO.update(userId,updateBody);
     res.send({status:"success",message:"User updated"})
@@ -29,7 +29,7 @@ const updateUser =async(req,res)=>{
 
 const deleteUser = async (req, res) => {
     const userId = req.params.uid;
-    const user = await USERDAO.getUserById(userId);
+    const user = await USERDAO.delete(userId);
     if (!user) {
         return res.status(404).send({ status: "error", error: "User not found" });
     }
