@@ -5,8 +5,10 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test": "mocha test/products.test.js",
-    "dev": "nodemon src/app.js"
+    "dev": "nodemon src/app.js",
+    "test:products": "mocha test/products.test.js",
+    "test:users": "mocha test/users.test.js"
+    
   },
   "keywords": [],
   "author": "",

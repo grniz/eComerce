@@ -12,18 +12,10 @@ export default class Products {
         };
     };
     
-    async getProductById(pid) {
-        try {
-            let response = await productsModel.findOne(pid);
-            console.log("Response:", response); 
-            if (!response) {
-                return null;
-            }
-            return response;
-        } catch (error) {
-            throw new Error(`Error en getProductById: ${error.message}`);
-        }
-    };
+    async getBy(params){
+        let response = await productsModel.findOne(params).lean();
+        return response;
+    }
 
     async createProduct(product) {
         let response = await productsModel.create(product);
