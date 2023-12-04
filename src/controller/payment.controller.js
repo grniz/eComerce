@@ -1,24 +1,12 @@
-import { CARTPRODUCTDAO } from "../dao/index.js";
+import CartProductDAO from "../dao/index.js";
 import stripe from 'stripe';
 
 // Inicializar Stripe con tu clave secreta
 const stripeInstance = stripe('tu_clave_secreta_de_stripe');
 
-async function createCartProduct(req, res) {
-    const cartProduct = req.body;
-    await CARTPRODUCTDAO.createCartProduct(cartProduct);
-    res.send(cartProduct);
-}
-
-async function updateCartProduct(req, res) {
-    const cartProduct = req.body;
-    await CARTPRODUCTDAO.updateCartProduct(cartProduct);
-    res.send(cartProduct);
-}
-
 async function purchaseCart(req, res) {
-    const cartId = req.params.id; // ID del carrito de compras
-    const cartProducts = await CARTPRODUCTDAO.getCartProducts(cartId);
+    const { id } = req.params; // Obtener el ID del carrito de compras
+    const cartProducts = await CartProductDAO.getCartProducts(id);
 
     if (!cartProducts || cartProducts.length === 0) {
         return res.status(404).send({ status: "error", message: "Cart not found or empty" });
@@ -66,25 +54,4 @@ function generateLineItems(cartProducts) {
     }));
 }
 
-export { createCartProduct, updateCartProduct, purchaseCart };
-
-
-
-
-/*
-import {CARTPRODUCTDAO} from "../dao/index.js";
-
-async function createCartProduct(req, res) {
-    const cartProduct = req.body;
-    await CARTPRODUCTDAO.createCartProduct(cartProduct);
-    res.send(cartProduct);
-  }
-  async function updateCartProduct(req, res) {
-    const cartProduct = req.body;
-    await CARTPRODUCTDAO.updateCartProduct(cartProduct);
-    res.send(cartProduct);
-  }
-
-export { createCartProduct, updateCartProduct };
-
-*/
+export { purchaseCart };
