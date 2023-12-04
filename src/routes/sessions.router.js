@@ -1,6 +1,6 @@
 import { Router } from "express";
 import UserModel from "../dao/mongo/models/users.model.js"
-import { createHash, isValidPassword } from "../utils/utils.js";
+import { createHash, isValidPassword } from "../utils.js";
 import passport from "passport";
 
 const router = Router();

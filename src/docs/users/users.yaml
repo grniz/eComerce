@@ -1,0 +1,140 @@
+openapi: 3.0.0
+info:
+  title: Users API
+  description: API for managing users and courses
+  version: 1.0.0
+paths:
+  /api/users:
+    get:
+      summary: Obtiene todos los usuarios
+      tags:
+        - Users
+      responses:
+        "200":
+          description: La obtencion de usuario resulto satisfactoria
+          content:
+            application/json:
+              schema:
+                type: array
+                items: 
+                  $ref: "#/components/schemas/User"
+        "500":
+          description: Error interno en la obtencion de los usuarios
+
+  /api/users/{uid}:
+    get:
+      summary: Obtiene solo un usuario por ID
+      tags:
+        - Users
+      parameters:
+      - name: uid
+        in: path
+        required: true
+        description: ID del usuario solicitado autogenerado por mongo
+        schema:
+          $type: string
+      responses:
+        "200":
+          description: Usuario obtenido satisfactoriamente
+          content:
+            application/json:
+              schema:
+                type: array
+                items: 
+                  $ref: "#/components/schemas/User"
+        "500":
+          description: Error interno en la obtencion de los usuarios
+    put:
+      sumary: Actualiza los datos de un usario por su ID
+      tags:
+        - Users
+      parameters:
+      - name: uid
+        in: path
+        required: true
+        description: Pasa por Path el ID del usuario solicitado
+        schema:
+          $type: String
+        requestBody:
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/requestBodies/updateUser'
+
+
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        _id:
+          type: Object ID
+          description: ID autogenerado por mongo
+        first_name:
+          type: string
+          description: Primer nombre del usuario
+        last_name:
+          type: string
+          description: Apellido del usuario
+        email:
+          type: string
+          description: Email del usuario
+        age:
+          type: number
+          description: Edad del usuario
+        password:
+          type: string
+          description: Password del usuario
+        cartID:
+          type: string
+          description: ID del carrito asociado al usuario
+        role:
+          type: string
+          description: Rol del usuario
+      example:
+        _id: Object ID("626bb8e45d4eu70c5adbca70")
+        firts_name: "Rodrigo"
+        last_name: "Niz"
+        email: "rodrigo@gmail.com"
+        age: "34"
+        password: "$2b$1p$SJCSINMQkO354UsJnju9I.hCZl3UvPxjSQ/sJZkuXdly1yc3B6nyi"
+        cartID: CartID("246rb4545d4eu70d7adbte70")
+        role: "user"
+        
+    requestBodies:
+      updateUser:
+        type: object
+        propieties:
+        _id:
+          type: Object ID
+          description: ID autogenerado por mongo
+        first_name:
+          type: string
+          description: Primer nombre del usuario
+        last_name:
+          type: string
+          description: Apellido del usuario
+        email:
+          type: string
+          description: Email del usuario
+        age:
+          type: number
+          description: Edad del usuario
+        password:
+          type: string
+          description: Password del usuario
+        cartID:
+          type: string
+          description: ID del carrito asociado al usuario
+        role:
+          type: string
+          description: Rol del usuario
+      example:
+        firts_name: "nombrePrueba"
+        last_name: "apellidoPrueba "
+        email: "test@gmail.com"
+        age: "18"
+        password: "pass123"
+
+ 

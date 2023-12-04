@@ -5,9 +5,11 @@ import mongoProductDao from "../dao/mongo/products.dao.js";
 import mongoCartDao from "../dao/mongo/carts.dao.js";
 import mongoCartProductDao from "../dao/mongo/cartProduct.dao.js";
 import mongoUserDao from "../dao/mongo/contact.mongo.js";
+import * as dotenv from "dotenv";
 
-import { PERSISTENCE } from "../config/config.js";
+dotenv.config();
 
+const PERSISTENCE = process.env.PERSISTENCE
 
 export const PRODUCTDAO = PERSISTENCE === "MONGO" ? new mongoProductDao() : new memoryProductDao();
 export const CARTDAO = PERSISTENCE === "MONGO" ? new mongoCartDao() : new memoryCartDao();

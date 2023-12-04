@@ -1,3 +1,4 @@
+/*
 import winston from "winston";
 
 const consoleTransport = new winston.transports.Console({
@@ -30,3 +31,4 @@ export const addLogger = (req, res, next) => {
     req.logger.http(`Ruta: ${req.method} ${req.url} - ${new Date().toLocaleTimeString()} - Data: ${bodyData}`);
     next();
 };
+*/

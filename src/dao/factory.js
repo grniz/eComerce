@@ -1,4 +1,7 @@
-import {PERSISTENCE} from "../config/config.js";
+import * as dotenv from "dotenv";
+dotenv.config();
+
+const PERSISTENCE = process.env.PERSISTENCE
 
 
 export let Contact;
