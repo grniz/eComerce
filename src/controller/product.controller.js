@@ -1,13 +1,13 @@
 import { PRODUCTDAO } from "../dao/index.js";
 
-async function findProducts(req, res) {
-  const products = await PRODUCTDAO.findProducts();
+async function getProduct(req, res) {
+  const products = await PRODUCTDAO.getProduct();
   res.send(products);
 }
 
-async function findProductById(req, res) {
+async function getProductById(req, res) {
   const id = req.params.id; 
-  const product = await PRODUCTDAO.findProductById(id);
+  const product = await PRODUCTDAO.getProductById(id);
   res.send(product);
 }
 
@@ -29,7 +29,7 @@ async function deleteProduct(req, res) {
   res.send(product);
 }
 
-export { findProducts, findProductById, createProduct, update, deleteProduct };
+export { getProduct, getProductById, createProduct, update, deleteProduct };
 
 
 

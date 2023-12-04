@@ -4,7 +4,7 @@ import __dirname from "../../utils.js";
 const path = __dirname + "../../data/products.json";
 
 export default class Products {
-  findProducts = async () => {
+  getProduct = async () => {
     if (fs.existsSync(path)) {
       try {
         let result = await fs.promises.readFile(path, "utf-8");
