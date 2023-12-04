@@ -8,7 +8,7 @@ function generateUsers() {
         email: faker.internet.email(),
         sex: faker.person.sex(),
         birthdate: faker.date.birthdate(),
-        phone: faker.phone.phoneNumber(),
+        password: faker.password.passwordNumber(),
         image: faker.internet.avatar(),
         id: faker.database.mongodbObjectId(),
         role: faker.datatype.boolean() ? "Admin" : "User",

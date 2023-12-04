@@ -27,13 +27,19 @@ const updateUser =async(req,res)=>{
     res.send({status:"success",message:"User updated"})
 }
 
-const deleteUser = async(req,res) =>{
+const deleteUser = async (req, res) => {
     const userId = req.params.uid;
-    const result = await USERDAO.getUserById(userId);
-    res.send({status:"success",message:"User deleted"})
-}
+    const user = await USERDAO.getUserById(userId);
+    if (!user) {
+        return res.status(404).send({ status: "error", error: "User not found" });
+    }
 
-export default {
+    const result = await USERDAO.delete(userId);
+    res.send({ status: "success", message: "User deleted" });
+};
+
+
+export {
     deleteUser,
     getAllUsers,
     createUser,

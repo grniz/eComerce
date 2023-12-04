@@ -4,6 +4,6 @@ export const generateUserErrorInfo = (user) =>{
     *first_name: need to be a String, received ${user.first_name}
     *last_name: need to be a String, received ${user.last_name}
     *email: need to be a String, received ${user.email}
-    *bithdate: need to be a String, received ${user.bithdate}
-    *phone:need to be a Number, received ${user.phone}`;
+    *age: need to be a Number, received ${user.age}
+    *password:need to be a String, received ${user.password}`;
 }

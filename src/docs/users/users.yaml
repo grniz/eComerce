@@ -20,6 +20,29 @@ paths:
                   $ref: "#/components/schemas/User"
         "500":
           description: Error interno en la obtencion de los usuarios
+    post:
+      sumary: Crea un nuevo usuario
+      tags:
+        - Users
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/createUser"
+      responses:
+        "201":
+          description: Usuario creado satisfactoriamente
+          content:
+            application/json:
+              schema:
+                type: array
+                items: 
+                  $ref: "#/components/schemas/User"
+        "400":
+          description: Error al generar el usuario
+        "500":
+          description: Error interno en la creacion del usuario
 
   /api/users/{uid}:
     get:
@@ -44,6 +67,7 @@ paths:
                   $ref: "#/components/schemas/User"
         "500":
           description: Error interno en la obtencion de los usuarios
+    
     put:
       sumary: Actualiza los datos de un usario por su ID
       tags:
@@ -61,6 +85,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/requestBodies/updateUser'
+    delete:
 
 
 components:
@@ -94,47 +119,77 @@ components:
           description: Rol del usuario
       example:
         _id: Object ID("626bb8e45d4eu70c5adbca70")
-        firts_name: "Rodrigo"
+        first_name: "Rodrigo"
         last_name: "Niz"
         email: "rodrigo@gmail.com"
         age: "34"
         password: "$2b$1p$SJCSINMQkO354UsJnju9I.hCZl3UvPxjSQ/sJZkuXdly1yc3B6nyi"
         cartID: CartID("246rb4545d4eu70d7adbte70")
-        role: "user"
-        
+        role: "user"        
     requestBodies:
       updateUser:
         type: object
         propieties:
-        _id:
-          type: Object ID
-          description: ID autogenerado por mongo
-        first_name:
-          type: string
-          description: Primer nombre del usuario
-        last_name:
-          type: string
-          description: Apellido del usuario
-        email:
-          type: string
-          description: Email del usuario
-        age:
-          type: number
-          description: Edad del usuario
-        password:
-          type: string
-          description: Password del usuario
-        cartID:
-          type: string
-          description: ID del carrito asociado al usuario
-        role:
-          type: string
-          description: Rol del usuario
-      example:
-        firts_name: "nombrePrueba"
-        last_name: "apellidoPrueba "
-        email: "test@gmail.com"
-        age: "18"
-        password: "pass123"
-
- 
+          _id:
+            type: Object ID
+            description: ID autogenerado por mongo
+          first_name:
+            type: string
+            description: Primer nombre del usuario
+          last_name:
+            type: string
+            description: Apellido del usuario
+          email:
+            type: string
+            description: Email del usuario
+          age:
+            type: number
+            description: Edad del usuario
+          password:
+            type: string
+            description: Password del usuario
+          cartID:
+            type: string
+            description: ID del carrito asociado al usuario
+          role:
+            type: string
+            description: Rol del usuario
+        example:
+          first_name: "Juan"
+          last_name: "Losada "
+          email: "goro@gmail.com"
+          age: "23"
+          password: "goropass123"
+    createUser:
+        type: object
+        propieties:
+          _id:
+            type: Object ID
+            description: ID autogenerado por mongo
+          first_name:
+            type: string
+            description: Primer nombre del usuario
+          last_name:
+            type: string
+            description: Apellido del usuario
+          email:
+            type: string
+            description: Email del usuario
+          age:
+            type: number
+            description: Edad del usuario
+          password:
+            type: string
+            description: Password del usuario
+          cartID:
+            type: string
+            description: ID del carrito asociado al usuario
+          role:
+            type: string
+            description: Rol del usuario
+        example:
+          first_name: "Juan"
+          last_name: "Losada "
+          email: "goro@gmail.com"
+          age: "23"
+          password: "goropass123"

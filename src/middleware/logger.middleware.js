@@ -24,7 +24,7 @@ const loginConfig = {
 
 const addLogger = (req,res,next) => {
     req.logger = winston.createLogger({
-        transportss: loginConfig[config.app.ENV],
+        transports: loginConfig[config.app.ENV],
     });
     req.logger.http(`${req.method} ${req.url}- ${new Date().toLocaleTimeString()}`);
     next();
