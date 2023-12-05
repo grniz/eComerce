@@ -8,7 +8,6 @@
     "dev": "nodemon src/app.js",
     "test:products": "mocha test/products.test.js",
     "test:users": "mocha test/users.test.js"
-    
   },
   "keywords": [],
   "author": "",
@@ -28,6 +27,7 @@
     "nodemon": "^3.0.1",
     "passport": "^0.6.0",
     "passport-github2": "^0.1.12",
+    "stripe": "^14.7.0",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.0",
     "winston": "^3.11.0"

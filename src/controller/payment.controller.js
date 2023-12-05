@@ -1,31 +1,30 @@
-import CartProductDAO from "../dao/index.js";
+import {CARTPRODUCTDAO} from "../dao/index.js";
 import stripe from 'stripe';
+import * as dotenv from "dotenv"
 
-// Inicializar Stripe con tu clave secreta
-const stripeInstance = stripe('tu_clave_secreta_de_stripe');
+dotenv.config();
+
+const PAYMENT_SECRECT_KEY = process.env.PAYMENT_SECRECT_KEY;
+
+const stripeInstance = stripe(PAYMENT_SECRECT_KEY);
 
 async function purchaseCart(req, res) {
-    const { id } = req.params; // Obtener el ID del carrito de compras
-    const cartProducts = await CartProductDAO.getCartProducts(id);
-
+    const { id } = req.params;
+    const cartProducts = await CARTPRODUCTDAO.getCartProducts(id);
     if (!cartProducts || cartProducts.length === 0) {
         return res.status(404).send({ status: "error", message: "Cart not found or empty" });
-    }
-
-    // Calcular el monto total del carrito en centavos
+    };
+    // Calcular el monto total
     const amount = calculateTotalAmount(cartProducts);
-
     try {
         // Crear una sesión de pago con Stripe
         const session = await stripeInstance.checkout.sessions.create({
             payment_method_types: ['card'],
             line_items: generateLineItems(cartProducts),
             mode: 'payment',
-            success_url: 'http://localhost:3000/success', // URL de éxito después del pago
-            cancel_url: 'http://localhost:3000/cancel',  // URL si se cancela el pago
+            success_url: 'http://localhost:8080/success', 
+            cancel_url: 'http://localhost:8080/cancel', 
         });
-
-        // Redireccionar al usuario a la página de pago de Stripe
         res.redirect(303, session.url);
     } catch (error) {
         console.error(error);
@@ -34,12 +33,8 @@ async function purchaseCart(req, res) {
 }
 
 function calculateTotalAmount(cartProducts) {
-    // Lógica para calcular el monto total del carrito en centavos
-    // Puedes sumar los precios de los productos, aplicar descuentos, etc.
-    // Este es un ejemplo básico
     return cartProducts.reduce((total, product) => total + (product.price * product.quantity * 100), 0);
 }
-
 function generateLineItems(cartProducts) {
     // Convertir productos en objetos line_items para Stripe
     return cartProducts.map(product => ({

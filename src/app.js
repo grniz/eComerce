@@ -23,6 +23,7 @@ import signupRouter from "./routes/signup.router.js";
 import forgotRouter from "./routes/forgot.router.js";
 import usersRouter from "./routes/user.router.js"
 import mockingProducts from "./routes/mokingProducts.router.js";
+import paymentRouter from "./routes/payment.routes.js"
 
 import errorHandler from "./middleware/errors/index.js";
 import nodemailer from "nodemailer";
@@ -96,7 +97,7 @@ app.use(
         },
         ttl: 30,
       }),
-      secret: "P1r4t3S3cr3t",
+      secret: SECRET_KEY,
       resave: false,
       saveUninitialized: false,
     })
@@ -121,15 +122,16 @@ app.engine("handlebars", handlebars.engine());
 app.set("views", __dirname + "/views");
 app.set("view engine", "handlebars");
 
+app.use("/", loginRouter);
 app.use("/api/products/", productsRouter);
 app.use("/api/carts/", cartRouter);
 app.use("/api/cart/", cartProductRouter);
 app.use("/api/users", usersRouter);
-app.use("/login", loginRouter);
 app.use("/signup", signupRouter);
 app.use("/forgot", forgotRouter);
 app.use("/api/sessions/", sessionRouter);
 app.use("/api/mockingProducts", mockingProducts);
+app.use('/api/payment', paymentRouter);
 
 const server = app.listen(PORT, () => {
     console.log(`servidor iniciado en puerto ${PORT}!`);
